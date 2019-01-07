@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>DN42 | GRGR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  </head>
+<body>
+
+<topbar style="display:none;">
+	<menu name="Peering" id=menu>
+		<item><a href="#chicago">Chicago</a></item>
+		<item><a href="#dallas">Dallas</a></item>
+		<item><a href="#denver">Denver</a></item>
+	</menu>
+</topbar>
+
+<textarea theme="simplex" style="display:none;">
+# GRGR Network
+GRGR runs <a href="https://dn42.net">DN42</a> AS 4242421114. IRC nick is *grgr*.
+
+## Peering
+I'm happy to peer at any of my POPs. Just send an email to dn42[@domain without subdomain]. I prefer to tunnel with wireguard but can entertain other options if necessary. My network uses, updates, and exports the standard [DN42 communities](https://dn42.net/howto/Bird-communities).
+
+### Chicago
+* Wireguard endpoint: chi.us.dn42.fiatflux.is:[${PORT}](#wireguard_port_numbers)
+* Wireguard pubkey: vuOR2/DRyBrdrAMrti4jwO838S9jlNBbNi26zlMooz4=
+* Tunnel IPv4: 172.20.6.249/32
+* Tunnel IPv6: fe80::249/64
+* ASN: 4242421114 
+
+### Dallas
+* Wireguard endpoint: dal.us.dn42.fiatflux.is:[${PORT}](#wireguard_port_numbers)
+* Wireguard pubkey: mM/KoFPZyk1IeO7YCy0uMX3KUItratxdEprIMzfc2X4=
+* Tunnel IPv4: 172.20.6.225/32
+* Tunnel IPv6: fe80::225/64
+* ASN: 4242421114 
+
+### Denver
+Coming soon I hope.
+
+### Wireguard port numbers
+Your wireguard port number will be 51000 plus the last 3 digits of your ASN, barring collisions.
+</textarea>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/strapdown-topbar/1.6.4/strapdown-topbar.min.js"></script>
+</body>
+</html>
