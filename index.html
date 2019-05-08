@@ -21,7 +21,7 @@
 GRGR runs <a href="https://dn42.net">DN42</a> AS 4242421114. IRC nick is *grgr*.
 
 ## Peering
-I'm happy to peer at any of my POPs. Just send an email to dn42[@domain without subdomain]. I prefer to tunnel with wireguard but can entertain other options if necessary. My network uses, updates, and exports the standard [DN42 communities](https://dn42.net/howto/Bird-communities).
+I'm happy to peer at any of my POPs. Just send an email to dn42[@domain without subdomain]. I prefer to tunnel with wireguard but can entertain other options if necessary.
 
 ### Chicago
 * Wireguard endpoint: chi.us.dn42.fiatflux.is:[${PORT}](#wireguard_port_numbers)
@@ -42,7 +42,109 @@ Coming soon I hope.
 
 ### Wireguard port numbers
 Your wireguard port number will be 51000 plus the last 3 digits of your ASN, barring collisions.
+
+## Routing policy and BGP communities
+I will configure our BGP session as full-transit unless you prefer otherwise. My network forms a full mesh and uses, updates, and exports the standard [DN42 communities](https://dn42.net/howto/Bird-communities). The DN42-standard latency, bandwidth, and crypto communities are updated in the internal hops.
+
+The MED exported from my network is just `10000 - bgp_local_pref`, and the local preference calculation is
+
+```
+bgp_local_pref = 69*(dn42_bandwidth-21) + 95*(9-dn42_latency) - 35*(bgp_path_len-1) + 180*(dn42_crypto-34)
+```,
+
+where the variables are raw community flags. This results in the following local preferences before path length and crypto penalties:
 </textarea>
+
+<div class="container">
+<table class="table table-bordered">
+  <tr>
+    <th></th>
+    <!--<th></th>-->
+    <th>2.7ms</th>
+    <th>7.3ms</th>
+    <th>20ms</th>
+    <th>55ms</th>
+    <th>148ms</th>
+    <th>403ms</th>
+    <th>1097ms</th>
+    <th>2981ms</th>
+  </tr>
+  <!--
+  <tr>
+    <td></td>
+    <td></td>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>8</td>
+  </tr>
+  -->
+  <tr>
+    <th>.1mbit</th>
+    <!--<td>21</td>-->
+    <td>760</td>
+    <td>665</td>
+    <td>570</td>
+    <td>475</td>
+    <td>380</td>
+    <td>285</td>
+    <td>190</td>
+    <td>95</td>
+  </tr>
+  <tr>
+    <th>1mbit</th>
+    <!--<td>22</td>-->
+    <td>829</td>
+    <td>734</td>
+    <td>639</td>
+    <td>544</td>
+    <td>449</td>
+    <td>354</td>
+    <td>259</td>
+    <td>164</td>
+  </tr>
+  <tr>
+    <th>10mbit</th>
+    <!--<td>23</td>-->
+    <td>898</td>
+    <td>803</td>
+    <td>708</td>
+    <td>613</td>
+    <td>518</td>
+    <td>423</td>
+    <td>328</td>
+    <td>233</td>
+  </tr>
+  <tr>
+    <th>100mbit</th>
+    <!--<td>24</td>-->
+    <td>967</td>
+    <td>872</td>
+    <td>777</td>
+    <td>682</td>
+    <td>587</td>
+    <td>492</td>
+    <td>397</td>
+    <td>302</td>
+  </tr>
+  <tr>
+    <th>1000mbit</th>
+    <!--<td>25</td>-->
+    <td>1036</td>
+    <td>941</td>
+    <td>846</td>
+    <td>751</td>
+    <td>656</td>
+    <td>561</td>
+    <td>466</td>
+    <td>371</td>
+  </tr>
+</table>
+</div>
 
 <script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/strapdown-topbar/1.6.4/strapdown-topbar.min.js"></script>
